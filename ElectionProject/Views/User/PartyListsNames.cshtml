@@ -1,0 +1,76 @@
+﻿@model IEnumerable<ElectionProject.Models.election_list>
+@{
+    ViewBag.Title = "PartyListsNames";
+}
+
+<h2>PartyListsNames</h2>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Cards</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .custom-checkbox {
+            transform: scale(1.5); /* Adjust the scale as needed */
+        }
+    </style>
+</head>
+<body>
+
+
+    <h1>الارجاء اختيار القائمة المراد التصويت لها</h1>
+
+
+    @using (Html.BeginForm("PartySaveVote", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+
+        <div class="row">
+
+
+            @foreach (var lists in Model)
+            {
+
+
+
+                <!-- Card 1 -->
+                <div class="col-md-3" style="margin: 0 auto">
+                    <div class="card mb-4">
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="Card image 1">
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(model => lists.name)</h5>
+                            <p class="card-text">Description for card 1.</p>
+                            @*<ul>
+                                    @foreach (var c in lists.candidates)
+                                    {
+                                        <li>
+                                            @c.voter_user.name
+                                        </li>
+                                    }
+
+                                </ul>*@
+
+                            <input class="custom-checkbox" type="radio" name="election_list_id" value="@lists.id" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin: 0 auto">Vote</button>
+    }
+    <br />
+
+    <div class="form-group">
+        @Html.ActionLink("رجوع", "Index", "Home", new { area = "" }, new { @class = "btn btn-info" })
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

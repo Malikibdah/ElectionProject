@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Verify Code";
+}
+
+<h2>Verify Code</h2>
+
+@using (Html.BeginForm("VerifyCode", "User", FormMethod.Post))
+{
+    <div>
+        <label for="verificationCode">Verification Code</label>
+        <input type="text" id="verificationCode" name="verificationCode" />
+    </div>
+    <div>
+        <input type="submit" value="Verify" />
+    </div>
+}

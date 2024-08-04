@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "ListsType";
+}
+
+<h2>ListsType</h2>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Cards</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    
+
+
+        <div class="container mt-5">
+            <h1>الرجاء اختيار نوع القائمة</h1>
+            <div class="row">
+                <!-- Card 1 -->
+                <div class="col-md-4" style="margin: 0 auto">
+                    <div class="card mb-4">
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="Card image 1">
+                        <div class="card-body">
+                            <h5 class="card-title">القوائم المحلية</h5>
+                            <p class="card-text">اضغط لاظهار القوائم المحلية لدائرتك</p>
+                            <div class="form-group" style="margin: 0 auto; display: @Html.Raw(ViewBag.display1) ">
+                                @Html.ActionLink("صوت", "ListsNames", "User", new { area = "" }, new { @class = "btn btn-primary col-md-6" })
+                            </div>
+                            <h5>@ViewBag.voted1</h5>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="col-md-4" style="margin: 0 auto">
+                    <div class="card mb-4">
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="Card image 2">
+                        <div class="card-body">
+                            <h5 class="card-title">القوائم الحزبية</h5>
+                            <p class="card-text">اضغط لاظهار القوائم الحزبية</p>
+                            <div class="form-group" style="margin: 0 auto; display: @Html.Raw(ViewBag.display2)">
+                                @Html.ActionLink("صوت", "PartyListsNames", "User", new { area = "" }, new { @class = "btn btn-primary col-md-6" })
+                            </div>
+                            <h5>@ViewBag.voted2</h5>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+          
+        </div>
+
+   
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

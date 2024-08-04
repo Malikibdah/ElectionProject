@@ -1,0 +1,19 @@
+﻿@model ElectionProject.Models.voter_user
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "User", FormMethod.Post))
+{
+    <div>
+        @Html.LabelFor(m => m.national_id)
+        @Html.TextBoxFor(m => m.national_id)
+    </div>
+    <div>
+        <input type="submit" value="Login" />
+        <span>@ViewBag.msg</span>
+    </div>
+}

@@ -1,0 +1,751 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="election_listModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Ad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="500" />
+          <Property Name="img_url" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="candidate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="election_list_id" Type="int" Nullable="false" />
+          <Property Name="type_of_chair" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="vote_count" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="candidate_request">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="election_list_request_id" Type="int" Nullable="false" />
+          <Property Name="type_of_chair" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="contact_us">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="subject" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="debates">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="requested_date" Type="datetime" Nullable="false" />
+          <Property Name="topic" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="first_list" Type="int" Nullable="false" />
+          <Property Name="second_list" Type="int" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Zoom_link" Type="nvarchar" MaxLength="255" />
+          <Property Name="details" Type="nvarchar(max)" />
+          <Property Name="debate_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="district">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="competitive_seat" Type="int" Nullable="false" />
+          <Property Name="women_seats" Type="int" Nullable="false" />
+          <Property Name="christian_seats" Type="int" Nullable="false" />
+          <Property Name="circassians_seats" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="election_dates">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomination_start_date" Type="datetime" Nullable="false" />
+          <Property Name="nomination_end_date" Type="datetime" Nullable="false" />
+          <Property Name="election_start_date" Type="datetime" Nullable="false" />
+          <Property Name="election_end_date" Type="datetime" Nullable="false" />
+          <Property Name="results_date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="election_list">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="district_id" Type="int" />
+          <Property Name="type" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="vote_count" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="election_list_request">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="district_id" Type="int" Nullable="false" />
+          <Property Name="type" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="voter_user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="national_id" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="255" />
+          <Property Name="district_id" Type="int" Nullable="false" />
+          <Property Name="birth_date" Type="date" Nullable="false" />
+          <Property Name="gender" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="religion" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ethnicity" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="has_locally_voted" Type="bit" Nullable="false" />
+          <Property Name="has_party_voted" Type="bit" Nullable="false" />
+          <Property Name="first_login" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_candidate_election_list_id">
+          <End Role="election_list" Type="Self.election_list" Multiplicity="1" />
+          <End Role="candidate" Type="Self.candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="election_list">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="candidate">
+              <PropertyRef Name="election_list_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_candidate_request_election_list_request_id">
+          <End Role="election_list_request" Type="Self.election_list_request" Multiplicity="1" />
+          <End Role="candidate_request" Type="Self.candidate_request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="election_list_request">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="candidate_request">
+              <PropertyRef Name="election_list_request_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_candidate_request_user_id">
+          <End Role="voter_user" Type="Self.voter_user" Multiplicity="1" />
+          <End Role="candidate_request" Type="Self.candidate_request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="voter_user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="candidate_request">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_candidate_user_id">
+          <End Role="voter_user" Type="Self.voter_user" Multiplicity="1" />
+          <End Role="candidate" Type="Self.candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="voter_user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="candidate">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_debates_first_list">
+          <End Role="election_list" Type="Self.election_list" Multiplicity="1" />
+          <End Role="debates" Type="Self.debates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="election_list">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="debates">
+              <PropertyRef Name="first_list" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_debates_second_list">
+          <End Role="election_list" Type="Self.election_list" Multiplicity="1" />
+          <End Role="debates" Type="Self.debates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="election_list">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="debates">
+              <PropertyRef Name="second_list" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_election_list_district_id">
+          <End Role="district" Type="Self.district" Multiplicity="0..1" />
+          <End Role="election_list" Type="Self.election_list" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="district">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="election_list">
+              <PropertyRef Name="district_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_election_list_request_district_id">
+          <End Role="district" Type="Self.district" Multiplicity="1" />
+          <End Role="election_list_request" Type="Self.election_list_request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="district">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="election_list_request">
+              <PropertyRef Name="district_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_voter_user_district_id">
+          <End Role="district" Type="Self.district" Multiplicity="1" />
+          <End Role="voter_user" Type="Self.voter_user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="district">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="voter_user">
+              <PropertyRef Name="district_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="election_listModelStoreContainer">
+          <EntitySet Name="Ad" EntityType="Self.Ad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="candidate" EntityType="Self.candidate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="candidate_request" EntityType="Self.candidate_request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contact_us" EntityType="Self.contact_us" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="debates" EntityType="Self.debates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="district" EntityType="Self.district" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="election_dates" EntityType="Self.election_dates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="election_list" EntityType="Self.election_list" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="election_list_request" EntityType="Self.election_list_request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="voter_user" EntityType="Self.voter_user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_candidate_election_list_id" Association="Self.FK_candidate_election_list_id">
+            <End Role="election_list" EntitySet="election_list" />
+            <End Role="candidate" EntitySet="candidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_candidate_request_election_list_request_id" Association="Self.FK_candidate_request_election_list_request_id">
+            <End Role="election_list_request" EntitySet="election_list_request" />
+            <End Role="candidate_request" EntitySet="candidate_request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_candidate_request_user_id" Association="Self.FK_candidate_request_user_id">
+            <End Role="voter_user" EntitySet="voter_user" />
+            <End Role="candidate_request" EntitySet="candidate_request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_candidate_user_id" Association="Self.FK_candidate_user_id">
+            <End Role="voter_user" EntitySet="voter_user" />
+            <End Role="candidate" EntitySet="candidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_debates_first_list" Association="Self.FK_debates_first_list">
+            <End Role="election_list" EntitySet="election_list" />
+            <End Role="debates" EntitySet="debates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_debates_second_list" Association="Self.FK_debates_second_list">
+            <End Role="election_list" EntitySet="election_list" />
+            <End Role="debates" EntitySet="debates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_election_list_district_id" Association="Self.FK_election_list_district_id">
+            <End Role="district" EntitySet="district" />
+            <End Role="election_list" EntitySet="election_list" />
+          </AssociationSet>
+          <AssociationSet Name="FK_election_list_request_district_id" Association="Self.FK_election_list_request_district_id">
+            <End Role="district" EntitySet="district" />
+            <End Role="election_list_request" EntitySet="election_list_request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_voter_user_district_id" Association="Self.FK_voter_user_district_id">
+            <End Role="district" EntitySet="district" />
+            <End Role="voter_user" EntitySet="voter_user" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="election_listModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Ad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="img_url" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="candidate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="election_list_id" Type="Int32" Nullable="false" />
+          <Property Name="type_of_chair" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="vote_count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="election_list" Relationship="Self.FK_candidate_election_list_id" FromRole="candidate" ToRole="election_list" />
+          <NavigationProperty Name="voter_user" Relationship="Self.FK_candidate_user_id" FromRole="candidate" ToRole="voter_user" />
+        </EntityType>
+        <EntityType Name="candidate_request">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="election_list_request_id" Type="Int32" Nullable="false" />
+          <Property Name="type_of_chair" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="election_list_request" Relationship="Self.FK_candidate_request_election_list_request_id" FromRole="candidate_request" ToRole="election_list_request" />
+          <NavigationProperty Name="voter_user" Relationship="Self.FK_candidate_request_user_id" FromRole="candidate_request" ToRole="voter_user" />
+        </EntityType>
+        <EntityType Name="contact_us">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="subject" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="debate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="requested_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="topic" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="first_list" Type="Int32" Nullable="false" />
+          <Property Name="second_list" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Zoom_link" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="debate_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="election_list" Relationship="Self.FK_debates_first_list" FromRole="debates" ToRole="election_list" />
+          <NavigationProperty Name="election_list1" Relationship="Self.FK_debates_second_list" FromRole="debates" ToRole="election_list" />
+        </EntityType>
+        <EntityType Name="district">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="competitive_seat" Type="Int32" Nullable="false" />
+          <Property Name="women_seats" Type="Int32" Nullable="false" />
+          <Property Name="christian_seats" Type="Int32" Nullable="false" />
+          <Property Name="circassians_seats" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="election_list" Relationship="Self.FK_election_list_district_id" FromRole="district" ToRole="election_list" />
+          <NavigationProperty Name="election_list_request" Relationship="Self.FK_election_list_request_district_id" FromRole="district" ToRole="election_list_request" />
+          <NavigationProperty Name="voter_user" Relationship="Self.FK_voter_user_district_id" FromRole="district" ToRole="voter_user" />
+        </EntityType>
+        <EntityType Name="election_dates">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomination_start_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="nomination_end_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="election_start_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="election_end_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="results_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="election_list">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="district_id" Type="Int32" />
+          <Property Name="type" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="vote_count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="candidates" Relationship="Self.FK_candidate_election_list_id" FromRole="election_list" ToRole="candidate" />
+          <NavigationProperty Name="debates" Relationship="Self.FK_debates_first_list" FromRole="election_list" ToRole="debates" />
+          <NavigationProperty Name="debates1" Relationship="Self.FK_debates_second_list" FromRole="election_list" ToRole="debates" />
+          <NavigationProperty Name="district" Relationship="Self.FK_election_list_district_id" FromRole="election_list" ToRole="district" />
+        </EntityType>
+        <EntityType Name="election_list_request">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="district_id" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="candidate_request" Relationship="Self.FK_candidate_request_election_list_request_id" FromRole="election_list_request" ToRole="candidate_request" />
+          <NavigationProperty Name="district" Relationship="Self.FK_election_list_request_district_id" FromRole="election_list_request" ToRole="district" />
+        </EntityType>
+        <EntityType Name="voter_user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="national_id" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="district_id" Type="Int32" Nullable="false" />
+          <Property Name="birth_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="religion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ethnicity" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="has_locally_voted" Type="Boolean" Nullable="false" />
+          <Property Name="has_party_voted" Type="Boolean" Nullable="false" />
+          <Property Name="first_login" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="candidates" Relationship="Self.FK_candidate_user_id" FromRole="voter_user" ToRole="candidate" />
+          <NavigationProperty Name="candidate_request" Relationship="Self.FK_candidate_request_user_id" FromRole="voter_user" ToRole="candidate_request" />
+          <NavigationProperty Name="district" Relationship="Self.FK_voter_user_district_id" FromRole="voter_user" ToRole="district" />
+        </EntityType>
+        <Association Name="FK_candidate_election_list_id">
+          <End Role="election_list" Type="Self.election_list" Multiplicity="1" />
+          <End Role="candidate" Type="Self.candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="election_list">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="candidate">
+              <PropertyRef Name="election_list_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_candidate_user_id">
+          <End Role="voter_user" Type="Self.voter_user" Multiplicity="1" />
+          <End Role="candidate" Type="Self.candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="voter_user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="candidate">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_candidate_request_election_list_request_id">
+          <End Role="election_list_request" Type="Self.election_list_request" Multiplicity="1" />
+          <End Role="candidate_request" Type="Self.candidate_request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="election_list_request">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="candidate_request">
+              <PropertyRef Name="election_list_request_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_candidate_request_user_id">
+          <End Role="voter_user" Type="Self.voter_user" Multiplicity="1" />
+          <End Role="candidate_request" Type="Self.candidate_request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="voter_user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="candidate_request">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_debates_first_list">
+          <End Role="election_list" Type="Self.election_list" Multiplicity="1" />
+          <End Role="debates" Type="Self.debate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="election_list">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="debates">
+              <PropertyRef Name="first_list" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_debates_second_list">
+          <End Role="election_list" Type="Self.election_list" Multiplicity="1" />
+          <End Role="debates" Type="Self.debate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="election_list">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="debates">
+              <PropertyRef Name="second_list" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_election_list_district_id">
+          <End Role="district" Type="Self.district" Multiplicity="0..1" />
+          <End Role="election_list" Type="Self.election_list" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="district">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="election_list">
+              <PropertyRef Name="district_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_election_list_request_district_id">
+          <End Role="district" Type="Self.district" Multiplicity="1" />
+          <End Role="election_list_request" Type="Self.election_list_request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="district">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="election_list_request">
+              <PropertyRef Name="district_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_voter_user_district_id">
+          <End Role="district" Type="Self.district" Multiplicity="1" />
+          <End Role="voter_user" Type="Self.voter_user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="district">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="voter_user">
+              <PropertyRef Name="district_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="election_listEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Ads" EntityType="Self.Ad" />
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="candidates" EntityType="Self.candidate" />
+          <EntitySet Name="candidate_request" EntityType="Self.candidate_request" />
+          <EntitySet Name="contact_us" EntityType="Self.contact_us" />
+          <EntitySet Name="debates" EntityType="Self.debate" />
+          <EntitySet Name="districts" EntityType="Self.district" />
+          <EntitySet Name="election_dates" EntityType="Self.election_dates" />
+          <EntitySet Name="election_list" EntityType="Self.election_list" />
+          <EntitySet Name="election_list_request" EntityType="Self.election_list_request" />
+          <EntitySet Name="voter_user" EntityType="Self.voter_user" />
+          <AssociationSet Name="FK_candidate_election_list_id" Association="Self.FK_candidate_election_list_id">
+            <End Role="election_list" EntitySet="election_list" />
+            <End Role="candidate" EntitySet="candidates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_candidate_user_id" Association="Self.FK_candidate_user_id">
+            <End Role="voter_user" EntitySet="voter_user" />
+            <End Role="candidate" EntitySet="candidates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_candidate_request_election_list_request_id" Association="Self.FK_candidate_request_election_list_request_id">
+            <End Role="election_list_request" EntitySet="election_list_request" />
+            <End Role="candidate_request" EntitySet="candidate_request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_candidate_request_user_id" Association="Self.FK_candidate_request_user_id">
+            <End Role="voter_user" EntitySet="voter_user" />
+            <End Role="candidate_request" EntitySet="candidate_request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_debates_first_list" Association="Self.FK_debates_first_list">
+            <End Role="election_list" EntitySet="election_list" />
+            <End Role="debates" EntitySet="debates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_debates_second_list" Association="Self.FK_debates_second_list">
+            <End Role="election_list" EntitySet="election_list" />
+            <End Role="debates" EntitySet="debates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_election_list_district_id" Association="Self.FK_election_list_district_id">
+            <End Role="district" EntitySet="districts" />
+            <End Role="election_list" EntitySet="election_list" />
+          </AssociationSet>
+          <AssociationSet Name="FK_election_list_request_district_id" Association="Self.FK_election_list_request_district_id">
+            <End Role="district" EntitySet="districts" />
+            <End Role="election_list_request" EntitySet="election_list_request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_voter_user_district_id" Association="Self.FK_voter_user_district_id">
+            <End Role="district" EntitySet="districts" />
+            <End Role="voter_user" EntitySet="voter_user" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="election_listModelStoreContainer" CdmEntityContainer="election_listEntities1">
+          <EntitySetMapping Name="Ads">
+            <EntityTypeMapping TypeName="election_listModel.Ad">
+              <MappingFragment StoreEntitySet="Ad">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="img_url" ColumnName="img_url" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="election_listModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="candidates">
+            <EntityTypeMapping TypeName="election_listModel.candidate">
+              <MappingFragment StoreEntitySet="candidate">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="election_list_id" ColumnName="election_list_id" />
+                <ScalarProperty Name="type_of_chair" ColumnName="type_of_chair" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="vote_count" ColumnName="vote_count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="candidate_request">
+            <EntityTypeMapping TypeName="election_listModel.candidate_request">
+              <MappingFragment StoreEntitySet="candidate_request">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="election_list_request_id" ColumnName="election_list_request_id" />
+                <ScalarProperty Name="type_of_chair" ColumnName="type_of_chair" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contact_us">
+            <EntityTypeMapping TypeName="election_listModel.contact_us">
+              <MappingFragment StoreEntitySet="contact_us">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="debates">
+            <EntityTypeMapping TypeName="election_listModel.debate">
+              <MappingFragment StoreEntitySet="debates">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="requested_date" ColumnName="requested_date" />
+                <ScalarProperty Name="topic" ColumnName="topic" />
+                <ScalarProperty Name="first_list" ColumnName="first_list" />
+                <ScalarProperty Name="second_list" ColumnName="second_list" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="Zoom_link" ColumnName="Zoom_link" />
+                <ScalarProperty Name="details" ColumnName="details" />
+                <ScalarProperty Name="debate_date" ColumnName="debate_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="districts">
+            <EntityTypeMapping TypeName="election_listModel.district">
+              <MappingFragment StoreEntitySet="district">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="competitive_seat" ColumnName="competitive_seat" />
+                <ScalarProperty Name="women_seats" ColumnName="women_seats" />
+                <ScalarProperty Name="christian_seats" ColumnName="christian_seats" />
+                <ScalarProperty Name="circassians_seats" ColumnName="circassians_seats" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="election_dates">
+            <EntityTypeMapping TypeName="election_listModel.election_dates">
+              <MappingFragment StoreEntitySet="election_dates">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nomination_start_date" ColumnName="nomination_start_date" />
+                <ScalarProperty Name="nomination_end_date" ColumnName="nomination_end_date" />
+                <ScalarProperty Name="election_start_date" ColumnName="election_start_date" />
+                <ScalarProperty Name="election_end_date" ColumnName="election_end_date" />
+                <ScalarProperty Name="results_date" ColumnName="results_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="election_list">
+            <EntityTypeMapping TypeName="election_listModel.election_list">
+              <MappingFragment StoreEntitySet="election_list">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="district_id" ColumnName="district_id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="vote_count" ColumnName="vote_count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="election_list_request">
+            <EntityTypeMapping TypeName="election_listModel.election_list_request">
+              <MappingFragment StoreEntitySet="election_list_request">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="district_id" ColumnName="district_id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="voter_user">
+            <EntityTypeMapping TypeName="election_listModel.voter_user">
+              <MappingFragment StoreEntitySet="voter_user">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="national_id" ColumnName="national_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="district_id" ColumnName="district_id" />
+                <ScalarProperty Name="birth_date" ColumnName="birth_date" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="religion" ColumnName="religion" />
+                <ScalarProperty Name="ethnicity" ColumnName="ethnicity" />
+                <ScalarProperty Name="has_locally_voted" ColumnName="has_locally_voted" />
+                <ScalarProperty Name="has_party_voted" ColumnName="has_party_voted" />
+                <ScalarProperty Name="first_login" ColumnName="first_login" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
