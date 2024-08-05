@@ -63,7 +63,7 @@ namespace ElectionProject.Controllers
 
                         smtpClient.Send(mailMessage);
 
-                        Session["National_ID"] = user.national_id.ToString();
+                        Session["tempNational_ID"] = user.national_id.ToString();
 
                         ViewBag.Emailsent = "The code has been sent to your Email";
 
@@ -101,9 +101,11 @@ namespace ElectionProject.Controllers
         [HttpPost]
         public ActionResult VerifyCode(string verificationCode)
         {
-            var sentCode = (string) Session["ConfCode"];
+            var sentCode = (string)Session["ConfCode"];
             if (verificationCode == sentCode)
             {
+                Session["National_ID"] = Session["tempNational_ID"];
+                Session["tempNational_ID"] = null;
                 return RedirectToAction("ResetPassword");
             }
 
@@ -173,6 +175,7 @@ namespace ElectionProject.Controllers
             }
             var nationalId = (string)Session["National_ID"];
             var user = db.voter_user.FirstOrDefault(u => u.national_id == nationalId);
+            if(user.first_login) return RedirectToAction("ResetPassword");
             var userDistrict = user.district_id;
 
             var circles = db.districts.Find(userDistrict);
@@ -189,6 +192,10 @@ namespace ElectionProject.Controllers
             }
             var nationalId = (string)Session["National_ID"];
             var user = db.voter_user.FirstOrDefault(u => u.national_id == nationalId);
+
+            // To Make sure that he has rested the password after the first login
+            if (user.first_login) return RedirectToAction("ResetPassword");
+
             if (user.has_locally_voted)
             {
                 ViewBag.display1 = "none";
@@ -211,6 +218,10 @@ namespace ElectionProject.Controllers
             }
             var nationalId = (string)Session["National_ID"];
             var user = db.voter_user.FirstOrDefault(u => u.national_id == nationalId);
+
+            // To Make sure that he has rested the password after the first login
+            if (user.first_login) return RedirectToAction("ResetPassword");
+
             var userDistrict = user.district_id;
             var electionList = db.election_list
                 .Where(list => list.district_id == userDistrict)
@@ -232,8 +243,12 @@ namespace ElectionProject.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var nationalId = Session["National_ID"];
+            var nationalId = (string) Session["National_ID"];
             var user = db.voter_user.FirstOrDefault(u => u.national_id == nationalId);
+
+            // To Make sure that he has rested the password after the first login
+            if (user.first_login) return RedirectToAction("ResetPassword");
+
             if (election_list_id == null)
             {
                 user.has_locally_voted = true;
@@ -256,6 +271,10 @@ namespace ElectionProject.Controllers
             }
             var nationalId = (string)Session["National_ID"];
             var user = db.voter_user.FirstOrDefault(u => u.national_id == nationalId);
+
+            // To Make sure that he has rested the password after the first login
+            if (user.first_login) return RedirectToAction("ResetPassword");
+
             user.has_locally_voted = true;
             db.voter_user.AddOrUpdate(user);
             foreach (var candidate in candidates)
@@ -281,6 +300,10 @@ namespace ElectionProject.Controllers
             }
             var nationalId = (string)Session["National_ID"];
             var user = db.voter_user.FirstOrDefault(u => u.national_id == nationalId);
+
+            // To Make sure that he has rested the password after the first login
+            if (user.first_login) return RedirectToAction("ResetPassword");
+
             var userDistrict = user.district_id;
             var electionList = db.election_list
                 .Where(list => list.district_id == null)
@@ -301,6 +324,10 @@ namespace ElectionProject.Controllers
             }
             var nationalId = (string)Session["National_ID"];
             var user = db.voter_user.FirstOrDefault(u => u.national_id == nationalId);
+
+            // To Make sure that he has rested the password after the first login
+            if (user.first_login) return RedirectToAction("ResetPassword");
+
             user.has_party_voted = true;
             db.voter_user.AddOrUpdate(user);
 
